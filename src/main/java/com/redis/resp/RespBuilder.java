@@ -1,5 +1,7 @@
 package com.redis.resp;
 
+import java.util.ArrayList;
+
 public final class RespBuilder {
     private RespBuilder() {}
 
@@ -24,10 +26,10 @@ public final class RespBuilder {
         return ":" + number + "\r\n";
     }
 
-    public static String array(String[] values) {
+    public static String array(ArrayList<String> values) {
         if (values == null) return "*-1\r\n";
         StringBuilder sb = new StringBuilder();
-        sb.append("*").append(values.length).append("\r\n");
+        sb.append("*").append(values.size()).append("\r\n");
         for (String v : values) {
             sb.append(bulkString(v));
         }

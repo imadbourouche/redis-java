@@ -5,15 +5,21 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.redis.resp.command.*;
+import com.redis.resp.storage.ListDataStore;
 import com.redis.resp.storage.MapDataStore;
 
 public class CommandHandler {
     private static final MapDataStore mapDataStore = new MapDataStore();
+    private static final ListDataStore listDataStore = new ListDataStore();
+
     private static final Map<String, Command> commands = Map.of(
             "ping", new PingCommand(),
             "echo", new EchoCommand(),
             "set", new SetCommand(mapDataStore),
-            "get", new GetCommand(mapDataStore)
+            "get", new GetCommand(mapDataStore),
+            "rpush", new RpushCommand(listDataStore),
+            "lrange", new LrangeCommand(listDataStore),
+            "lpush", new LpushCommand(listDataStore)
     );
 
     public static Map<String, String> map = new ConcurrentHashMap<>();
