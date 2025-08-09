@@ -34,8 +34,11 @@ public class ListDataStore {
         return list.size();
     }
 
-    public String pop(String key, int index) {
-        return keyListMap.containsKey(key) ? keyListMap.get(key).remove(index) : null;
+    public String pop(String key) {
+        if (keyListMap.containsKey(key)){
+            return keyListMap.get(key).isEmpty() ? null : keyListMap.get(key).removeFirst();
+        }
+        return null;
     }
 
     public ArrayList<String> popMultipleElements(String key, int numElements) {

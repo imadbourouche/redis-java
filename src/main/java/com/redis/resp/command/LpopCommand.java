@@ -23,7 +23,7 @@ public class LpopCommand implements Command {
             ArrayList<String> itemsRemoved = listDataStore.popMultipleElements(listKey, numOfElemToRemove);
             return RespBuilder.array(itemsRemoved);
         }else{
-            String firstItem = listDataStore.pop(args[1], 0);
+            String firstItem = listDataStore.pop(args[1]);
             return RespBuilder.bulkString(firstItem);
         }
     }

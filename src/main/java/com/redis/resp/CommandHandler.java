@@ -21,7 +21,8 @@ public class CommandHandler {
             "lrange", new LrangeCommand(listDataStore),
             "lpush", new LpushCommand(listDataStore),
             "llen", new LlenCommand(listDataStore),
-            "lpop", new LpopCommand(listDataStore)
+            "lpop", new LpopCommand(listDataStore),
+            "blpop", new BlpopCommand(listDataStore)
     );
 
     public static Map<String, String> map = new ConcurrentHashMap<>();
