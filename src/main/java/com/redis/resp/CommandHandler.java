@@ -19,7 +19,8 @@ public class CommandHandler {
             "get", new GetCommand(mapDataStore),
             "rpush", new RpushCommand(listDataStore),
             "lrange", new LrangeCommand(listDataStore),
-            "lpush", new LpushCommand(listDataStore)
+            "lpush", new LpushCommand(listDataStore),
+            "llen", new LlenCommand(listDataStore)
     );
 
     public static Map<String, String> map = new ConcurrentHashMap<>();

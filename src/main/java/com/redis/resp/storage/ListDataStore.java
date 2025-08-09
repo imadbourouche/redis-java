@@ -33,4 +33,8 @@ public class ListDataStore {
         }
         return list.size();
     }
+    
+    public int lengthList(String key) {
+        return keyListMap.containsKey(key) ? keyListMap.get(key).size() : 0;
+    }
 }
