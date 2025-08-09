@@ -16,6 +16,6 @@ public class GetCommand implements Command {
             return RespBuilder.error("ERR wrong number of arguments for 'get' command");
         }
         String value = mapDataStore.get(args[1]);
-        return (value != null) ? RespBuilder.bulkString(value) : RespBuilder.nullBulkString();
+        return RespBuilder.bulkString(value);
     }
 }

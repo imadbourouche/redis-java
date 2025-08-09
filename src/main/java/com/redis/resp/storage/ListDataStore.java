@@ -33,7 +33,24 @@ public class ListDataStore {
         }
         return list.size();
     }
-    
+
+    public String pop(String key, int index) {
+        return keyListMap.containsKey(key) ? keyListMap.get(key).remove(index) : null;
+    }
+
+    public ArrayList<String> popMultipleElements(String key, int numElements) {
+        ArrayList<String> list = keyListMap.get(key);
+        if (list == null || list.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        int endIndex = Math.min(numElements, list.size());
+        ArrayList<String> result = new ArrayList<>(list.subList(0, endIndex));
+        list.subList(0, endIndex).clear();
+        return result;
+    }
+
+
     public int lengthList(String key) {
         return keyListMap.containsKey(key) ? keyListMap.get(key).size() : 0;
     }

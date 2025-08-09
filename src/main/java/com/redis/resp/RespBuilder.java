@@ -18,10 +18,6 @@ public final class RespBuilder {
         return "$" + value.length() + "\r\n" + value + "\r\n";
     }
 
-    public static String nullBulkString() {
-        return "$-1\r\n";
-    }
-
     public static String integer(long number) {
         return ":" + number + "\r\n";
     }
