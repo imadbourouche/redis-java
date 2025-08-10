@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ListDataStore {
-    private final Map<String, ArrayList<String>> keyListMap = new HashMap<String, ArrayList<String>>();
+    private final Map<String, ArrayList<String>> keyListMap = new ConcurrentHashMap<String, ArrayList<String>>();
 
     public boolean containsKey(String key) {
         return keyListMap.containsKey(key);
