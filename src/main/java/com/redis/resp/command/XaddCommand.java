@@ -1,5 +1,6 @@
 package com.redis.resp.command;
 
+import com.redis.exceptions.InvalidIdException;
 import com.redis.resp.RespBuilder;
 import com.redis.resp.storage.StreamDataStore;
 
@@ -19,8 +20,15 @@ public class XaddCommand implements Command{
         String id = args[2];
         String key = args[3];
         String value = args[4];
-
-        streamDataStore.set(streamKey, id, key, value);
-        return RespBuilder.bulkString(id);
+        try{
+            return RespBuilder.bulkString(streamDataStore.set(streamKey, id, key, value));
+        }catch (InvalidIdException e){
+            return RespBuilder.error(e.getMessage());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return RespBuilder.error(e.getMessage());
+        }
     }
+
+
 }
