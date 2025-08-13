@@ -28,6 +28,7 @@ public class CommandHandler {
         commandMap.put("blpop", new BlpopCommand(listDataStore));
         commandMap.put("type", new TypeCommand(mapDataStore, streamDataStore));
         commandMap.put("xadd", new XaddCommand(streamDataStore));
+        commandMap.put("xrange", new XrangeCommand(streamDataStore));
         commands = Collections.unmodifiableMap(commandMap);
     }
     public static String handle(String received) {
