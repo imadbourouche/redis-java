@@ -50,7 +50,7 @@ public class BlpopCommand implements Command {
                     }
                 }
                  System.out.printf("Thread[%d]: waiting for key in the list %s%n", Thread.currentThread().threadId(), listKey);
-                Thread.sleep(Duration.ofMillis(100));
+                Thread.sleep(Duration.ofMillis(10));
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

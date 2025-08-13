@@ -1,6 +1,7 @@
 package com.redis.resp;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public final class RespBuilder {
     private RespBuilder() {}
@@ -22,12 +23,16 @@ public final class RespBuilder {
         return ":" + number + "\r\n";
     }
 
-    public static String array(ArrayList<String> values) {
+    public static String array(List<?> values) {
         if (values == null) return "*-1\r\n";
         StringBuilder sb = new StringBuilder();
         sb.append("*").append(values.size()).append("\r\n");
-        for (String v : values) {
-            sb.append(bulkString(v));
+        for (Object v : values) {
+            if (v instanceof List<?>) {
+                sb.append(array((List<?>) v)); // recursive for nested arrays
+            }else{
+                sb.append(bulkString(v.toString()));
+            }
         }
         return sb.toString();
     }

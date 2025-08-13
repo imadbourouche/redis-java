@@ -12,15 +12,17 @@ public class StreamDataStore {
     private final Map<String, HashMap<String, HashMap<String, String>>> stream = new ConcurrentHashMap<>();
     private final Map<String, String> topIds = new ConcurrentHashMap<>();
 
-    public String set(String keyStream, String id, String key, String value) {
+    public String set(String keyStream, String id, Map<String, String> fields) {
         validateId(id);
         validateIdGreaterThanTop(keyStream, id);
         id = generateId(keyStream, id);
-        HashMap<String, String> keyValue = new HashMap<>();
-        keyValue.put(key, value);
-        stream.computeIfAbsent(keyStream, k -> new HashMap<>()).put(id, keyValue);
+        stream.computeIfAbsent(keyStream, k -> new HashMap<>()).put(id, new  HashMap<>(fields));
         topIds.put(keyStream, id);
         return id;
+    }
+
+    public HashMap<String, HashMap<String, String>> getStream(String keyStream) {
+        return stream.get(keyStream);
     }
 
     public boolean containsKey(String keyStream) {

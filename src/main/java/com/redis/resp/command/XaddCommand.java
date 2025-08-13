@@ -4,6 +4,9 @@ import com.redis.exceptions.InvalidIdException;
 import com.redis.resp.RespBuilder;
 import com.redis.resp.storage.StreamDataStore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class XaddCommand implements Command{
     private final StreamDataStore streamDataStore;
 
@@ -13,15 +16,19 @@ public class XaddCommand implements Command{
 
     @Override
     public String execute(String[] args){
-        if(args.length != 5){
-            return RespBuilder.error("ERR usage: XADD <keyStream> <id> <key> <values>");
+        if (args.length < 5 || (args.length - 3) % 2 != 0) {
+            return RespBuilder.error("ERR usage: XADD <keyStream> <id> <field> <value> [field value ...]");
         }
         String streamKey = args[1];
         String id = args[2];
-        String key = args[3];
-        String value = args[4];
+        Map<String, String> fields = new HashMap<>();
+        for (int i = 3; i < args.length; i += 2) {
+            String field = args[i];
+            String value = args[i + 1];
+            fields.put(field, value);
+        }
         try{
-            return RespBuilder.bulkString(streamDataStore.set(streamKey, id, key, value));
+            return RespBuilder.bulkString(streamDataStore.set(streamKey, id, fields));
         }catch (InvalidIdException e){
             return RespBuilder.error(e.getMessage());
         }catch (Exception e){
