@@ -15,7 +15,7 @@ public final class RespBuilder {
     }
 
     public static String bulkString(String value) {
-        if (value == null || value.isEmpty()) return "$-1\r\n";
+        if (value == null) return "$-1\r\n";
         return "$" + value.length() + "\r\n" + value + "\r\n";
     }
 
@@ -30,7 +30,10 @@ public final class RespBuilder {
         for (Object v : values) {
             if (v instanceof List<?>) {
                 sb.append(array((List<?>) v)); // recursive for nested arrays
-            }else{
+            }else if (v instanceof Integer) {
+                sb.append(integer((Integer) v));
+            }
+            else {
                 sb.append(bulkString(v.toString()));
             }
         }

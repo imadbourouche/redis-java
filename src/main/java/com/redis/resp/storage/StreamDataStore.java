@@ -29,6 +29,10 @@ public class StreamDataStore {
         return stream.containsKey(keyStream);
     }
 
+    public String getTopId(String keyStream) {
+        return topIds.get(keyStream);
+    }
+
     // private validation methods
     private void validateId(String id) {
         // Matches:
