@@ -17,8 +17,9 @@ public class ClientHandler {
                 int read;
                 while ((read = inputStream.read(buffer)) != -1) {
                     String received = new String(buffer, 0, read).trim();
-                    String response = CommandHandler.handle(received);
+                    String response = CommandHandler.handle(received, clientSocket);
                     outputStream.write((response).getBytes());
+                    outputStream.flush();
                 }
             } catch (IOException e) {
                 System.out.println("Client disconnected: " + e.getMessage());
